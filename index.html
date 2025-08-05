@@ -3,199 +3,217 @@
 <head>
   <meta charset="UTF-8"/>
   <title>Squad → Photoshop XI Script</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: grid;
+      place-items: center;
       min-height: 100vh;
-      background: #e6ecf2;
-      margin: 0;
-    }
-    .card {
-      background: #f4f6f8;
-      padding: 1rem;
-      border-radius: 14px;
-      box-shadow: 6px 6px 18px rgba(0,0,0,0.05), -6px -6px 18px rgba(255,255,255,0.8);
-      width: 85%;
-      max-width: 340px;
+      background: linear-gradient(135deg,#e6ecf2,#f4f6f8);
+      font-family: 'Poppins', sans-serif;
     }
     h1 {
       text-align: center;
-      margin-bottom: 1rem;
-      font-family: Arial, sans-serif;
-      font-size: 1.4rem;
-      color: #222;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #333;
     }
     form {
       display: flex;
       flex-direction: column;
+      gap: 1.5rem;
     }
-    .dropdown-field {
-      margin-bottom: 0.8rem;
+    .row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
     }
-    .dropdown-field label {
-      display: block;
-      font-size: 0.95rem;
+    .position {
+      background: #f9fafb;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .position label {
+      font-size: 0.85rem;
       font-weight: 500;
-      margin-bottom: 0.3rem;
       color: #555;
     }
-    .dropdown-field input {
-      width: 100%;
-      padding: 0.8rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #333;
-      background: #f4f6f8;
-      border: none;
-      border-radius: 10px;
-      box-shadow: inset 3px 3px 6px rgba(0,0,0,0.05), inset -3px -3px 6px rgba(255,255,255,0.8);
-      box-sizing: border-box;
+    .position input {
+      padding: 0.6rem 0.75rem;
+      font-size: 0.95rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .dropdown-field input:focus {
+    .position input:focus {
       outline: none;
-      box-shadow: inset 2px 2px 4px rgba(0,94,252,0.25), inset -2px -2px 4px rgba(255,255,255,0.8);
+      border-color: #005efc;
+      box-shadow: 0 0 0 3px rgba(0,94,252,0.2);
+    }
+    .toggles {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .toggles label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #333;
+      cursor: pointer;
+    }
+    .toggles input {
+      width: 1.2em;
+      height: 1.2em;
     }
     button {
-      padding: 0.75rem;
+      align-self: center;
+      padding: 0.75rem 2rem;
       font-size: 1rem;
+      font-weight: 600;
       background: #005efc;
       color: #fff;
       border: none;
-      border-radius: 8px;
+      border-radius: 0.5rem;
       cursor: pointer;
-      transition: background 0.2s ease-in-out;
-      box-shadow: 3px 3px 10px rgba(0,94,252,0.2), -3px -3px 10px rgba(255,255,255,0.5);
-      margin-top: 1rem;
+      box-shadow: 0 4px 12px rgba(0,94,252,0.2);
+      transition: background 0.2s, transform 0.1s;
     }
-    button:hover { background: #0041b3; }
+    button:hover {
+      background: #0041b3;
+      transform: translateY(-2px);
+    }
+    button:active {
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Pick Your 8</h1>
-    <form id="squadForm">
-      <!-- Autocomplete sources -->
+    <form id="squadForm" novalidate>
       <datalist id="namesList"></datalist>
       <datalist id="teamsList"></datalist>
       <datalist id="nationsList"></datalist>
 
-      <!-- 8 × (Player, Team, Nation) -->
-      <!-- ST_BW -->
-      <div class="dropdown-field">
-        <label for="player1">ST_BW</label>
-        <input list="namesList"   id="player1" name="player"  placeholder="Type a name…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="team1">ST_BW_Team</label>
-        <input list="teamsList"   id="team1"   name="team"    placeholder="Type a team…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="nation1">ST_BW_Nation</label>
-        <input list="nationsList" id="nation1" name="nation"  placeholder="Type a nation…" required>
-      </div>
-
-      <!-- LAM_BW -->
-      <div class="dropdown-field">
-        <label for="player2">LAM_BW</label>
-        <input list="namesList"   id="player2" name="player"  placeholder="Type a name…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="team2">LAM_BW_Team</label>
-        <input list="teamsList"   id="team2"   name="team"    placeholder="Type a team…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="nation2">LAM_BW_Nation</label>
-        <input list="nationsList" id="nation2" name="nation"  placeholder="Type a nation…" required>
-      </div>
-
-      <!-- RAM_BW -->
-      <div class="dropdown-field">
-        <label for="player3">RAM_BW</label>
-        <input list="namesList"   id="player3" name="player"  placeholder="Type a name…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="team3">RAM_BW_Team</label>
-        <input list="teamsList"   id="team3"   name="team"    placeholder="Type a team…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="nation3">RAM_BW_Nation</label>
-        <input list="nationsList" id="nation3" name="nation"  placeholder="Type a nation…" required>
+      <!-- Row 1: BW Positions -->
+      <div class="row">
+        <!-- ST_BW -->
+        <div class="position">
+          <label for="player1">ST_BW</label>
+          <input list="namesList" id="player1" name="player" placeholder="Name…" required>
+          <label for="team1">Team</label>
+          <input list="teamsList" id="team1" name="team" placeholder="Team…" required>
+          <label for="nation1">Nation</label>
+          <input list="nationsList" id="nation1" name="nation" placeholder="Nation…" required>
+        </div>
+        <!-- LAM_BW -->
+        <div class="position">
+          <label for="player2">LAM_BW</label>
+          <input list="namesList" id="player2" name="player" placeholder="Name…" required>
+          <label for="team2">Team</label>
+          <input list="teamsList" id="team2" name="team" placeholder="Team…" required>
+          <label for="nation2">Nation</label>
+          <input list="nationsList" id="nation2" name="nation" placeholder="Nation…" required>
+        </div>
+        <!-- RAM_BW -->
+        <div class="position">
+          <label for="player3">RAM_BW</label>
+          <input list="namesList" id="player3" name="player" placeholder="Name…" required>
+          <label for="team3">Team</label>
+          <input list="teamsList" id="team3" name="team" placeholder="Team…" required>
+          <label for="nation3">Nation</label>
+          <input list="nationsList" id="nation3" name="nation" placeholder="Nation…" required>
+        </div>
+        <!-- CAM_BW -->
+        <div class="position">
+          <label for="player4">CAM_BW</label>
+          <input list="namesList" id="player4" name="player" placeholder="Name…" required>
+          <label for="team4">Team</label>
+          <input list="teamsList" id="team4" name="team" placeholder="Team…" required>
+          <label for="nation4">Nation</label>
+          <input list="nationsList" id="nation4" name="nation" placeholder="Nation…" required>
+        </div>
       </div>
 
-      <!-- CAM_BW -->
-      <div class="dropdown-field">
-        <label for="player4">CAM_BW</label>
-        <input list="namesList"   id="player4" name="player"  placeholder="Type a name…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="team4">CAM_BW_Team</label>
-        <input list="teamsList"   id="team4"   name="team"    placeholder="Type a team…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="nation4">CAM_BW_Nation</label>
-        <input list="nationsList" id="nation4" name="nation"  placeholder="Type a nation…" required>
-      </div>
-
-      <!-- ST -->
-      <div class="dropdown-field">
-        <label for="player5">ST</label>
-        <input list="namesList"   id="player5" name="player"  placeholder="Type a name…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="team5">ST_Team</label>
-        <input list="teamsList"   id="team5"   name="team"    placeholder="Type a team…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="nation5">ST_Nation</label>
-        <input list="nationsList" id="nation5" name="nation"  placeholder="Type a nation…" required>
-      </div>
-
-      <!-- LAM -->
-      <div class="dropdown-field">
-        <label for="player6">LAM</label>
-        <input list="namesList"   id="player6" name="player"  placeholder="Type a name…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="team6">LAM_Team</label>
-        <input list="teamsList"   id="team6"   name="team"    placeholder="Type a team…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="nation6">LAM_Nation</label>
-        <input list="nationsList" id="nation6" name="nation"  placeholder="Type a nation…" required>
+      <!-- Row 2: Regular Positions -->
+      <div class="row">
+        <!-- ST -->
+        <div class="position">
+          <label for="player5">ST</label>
+          <input list="namesList" id="player5" name="player" placeholder="Name…" required>
+          <label for="team5">Team</label>
+          <input list="teamsList" id="team5" name="team" placeholder="Team…" required>
+          <label for="nation5">Nation</label>
+          <input list="nationsList" id="nation5" name="nation" placeholder="Nation…" required>
+        </div>
+        <!-- LAM -->
+        <div class="position">
+          <label for="player6">LAM</label>
+          <input list="namesList" id="player6" name="player" placeholder="Name…" required>
+          <label for="team6">Team</label>
+          <input list="teamsList" id="team6" name="team" placeholder="Team…" required>
+          <label for="nation6">Nation</label>
+          <input list="nationsList" id="nation6" name="nation" placeholder="Nation…" required>
+        </div>
+        <!-- RAM -->
+        <div class="position">
+          <label for="player7">RAM</label>
+          <input list="namesList" id="player7" name="player" placeholder="Name…" required>
+          <label for="team7">Team</label>
+          <input list="teamsList" id="team7" name="team" placeholder="Team…" required>
+          <label for="nation7">Nation</label>
+          <input list="nationsList" id="nation7" name="nation" placeholder="Nation…" required>
+        </div>
+        <!-- CAM -->
+        <div class="position">
+          <label for="player8">CAM</label>
+          <input list="namesList" id="player8" name="player" placeholder="Name…" required>
+          <label for="team8">Team</label>
+          <input list="teamsList" id="team8" name="team" placeholder="Team…" required>
+          <label for="nation8">Nation</label>
+          <input list="nationsList" id="nation8" name="nation" placeholder="Nation…" required>
+        </div>
       </div>
 
-      <!-- RAM -->
-      <div class="dropdown-field">
-        <label for="player7">RAM</label>
-        <input list="namesList"   id="player7" name="player"  placeholder="Type a name…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="team7">RAM_Team</label>
-        <input list="teamsList"   id="team7"   name="team"    placeholder="Type a team…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="nation7">RAM_Nation</label>
-        <input list="nationsList" id="nation7" name="nation"  placeholder="Type a nation…" required>
+      <div class="toggles">
+        <label><input type="checkbox" id="chkTeams" checked> Include Teams</label>
+        <label><input type="checkbox" id="chkNations" checked> Include Nations</label>
       </div>
 
-      <!-- CAM -->
-      <div class="dropdown-field">
-        <label for="player8">CAM</label>
-        <input list="namesList"   id="player8" name="player"  placeholder="Type a name…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="team8">CAM_Team</label>
-        <input list="teamsList"   id="team8"   name="team"    placeholder="Type a team…" required>
-      </div>
-      <div class="dropdown-field">
-        <label for="nation8">CAM_Nation</label>
-        <input list="nationsList" id="nation8" name="nation"  placeholder="Type a nation…" required>
-      </div>
-
-      <button type="submit">Generate Script</button>
+      <button type="submit">Generate &amp; Download .jsx</button>
     </form>
   </div>
+
+  <script src="script.js"></script>
+  <script>
+    function toggleFields(name, show) {
+      document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+        const label = input.previousElementSibling;
+        if (label && label.tagName === 'LABEL') {
+          label.style.display = show ? '' : 'none';
+        }
+        input.style.display = show ? '' : 'none';
+        input.required = show;
+      });
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      toggleFields('team',   document.getElementById('chkTeams').checked);
+      toggleFields('nation', document.getElementById('chkNations').checked);
+      document.getElementById('chkTeams').addEventListener('change', e => {
+        toggleFields('team', e.target.checked);
+      });
+      document.getElementById('chkNations').addEventListener('change', e => {
+        toggleFields('nation', e.target.checked);
+      });
+    });
+  </script>
 </body>
 </html>
