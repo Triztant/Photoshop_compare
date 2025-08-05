@@ -91,7 +91,11 @@ for (var p = 0; p < positions.length; p++) {
   nl.translate(ol - rb[0].as('px'), ot - rb[1].as('px'));
   nl.grouped = true;
 
-  var txt = findLayerByNameRecursive(doc, posName + '_text');
+  // Determine correct text layer name
+  var textName = posName.indexOf('_BW') > -1
+    ? posName.replace('_BW','') + '_text_BW'
+    : posName + '_text';
+  var txt = findLayerByNameRecursive(doc, textName);
   if (txt && txt.kind == LayerKind.TEXT) {
     txt.textItem.contents = lastName;
   }
